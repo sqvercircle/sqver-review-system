@@ -212,9 +212,9 @@
         data-rating="4" aria-label="4 stars"
         aria-pressed="false">★</button>
 
-      <button type="button" class="star active"
+      <button type="button" class="star"
         data-rating="5" aria-label="5 stars"
-        aria-pressed="true">★</button>
+        aria-pressed="false">★</button>
     </div>
 
     <h3 class="section-heading">
@@ -223,89 +223,27 @@
 
     <div class="aspects" id="categories">
 
-      <button type="button" class="aspect">
-        Ambience & atmosphere
-      </button>
-
-      <button type="button" class="aspect">
-        Lighting
-      </button>
-
-      <button type="button" class="aspect">
-        Cleanliness
-      </button>
-
-      <button type="button" class="aspect">
-        Store layout
-      </button>
-
-      <button type="button" class="aspect">
-        Display & presentation
-      </button>
-
-      <button type="button" class="aspect">
-        Staff behaviour
-      </button>
-
-      <button type="button" class="aspect">
-        Staff helpfulness
-      </button>
-
-      <button type="button" class="aspect">
-        Staff product knowledge
-      </button>
-
-      <button type="button" class="aspect">
-        Customer service
-      </button>
-
-      <button type="button" class="aspect">
-        Billing experience
-      </button>
-
-      <button type="button" class="aspect">
-        Clothing collection
-      </button>
-
-      <button type="button" class="aspect">
-        Footwear collection
-      </button>
-
-      <button type="button" class="aspect">
-        Variety & choices
-      </button>
-
-      <button type="button" class="aspect">
-        Latest trends
-      </button>
-
-      <button type="button" class="aspect">
-        Sizes & availability
-      </button>
-
-      <button type="button" class="aspect">
-        Product quality
-      </button>
-
-      <button type="button" class="aspect">
-        Price & value
-      </button>
-
-      <button type="button" class="aspect">
-        Offers & discounts
-      </button>
-
-      <button type="button" class="aspect">
-        Shopping comfort
-      </button>
-
-      <button type="button" class="aspect">
-        Ease of product selection
-      </button>
-
-      <button type="button" class="aspect">
-        Overall shopping experience
-      </button>
+      <button type="button" class="aspect">Ambience & atmosphere</button>
+      <button type="button" class="aspect">Lighting</button>
+      <button type="button" class="aspect">Cleanliness</button>
+      <button type="button" class="aspect">Store layout</button>
+      <button type="button" class="aspect">Display & presentation</button>
+      <button type="button" class="aspect">Staff behaviour</button>
+      <button type="button" class="aspect">Staff helpfulness</button>
+      <button type="button" class="aspect">Staff product knowledge</button>
+      <button type="button" class="aspect">Customer service</button>
+      <button type="button" class="aspect">Billing experience</button>
+      <button type="button" class="aspect">Clothing collection</button>
+      <button type="button" class="aspect">Footwear collection</button>
+      <button type="button" class="aspect">Variety & choices</button>
+      <button type="button" class="aspect">Latest trends</button>
+      <button type="button" class="aspect">Sizes & availability</button>
+      <button type="button" class="aspect">Product quality</button>
+      <button type="button" class="aspect">Price & value</button>
+      <button type="button" class="aspect">Offers & discounts</button>
+      <button type="button" class="aspect">Shopping comfort</button>
+      <button type="button" class="aspect">Ease of product selection</button>
+      <button type="button" class="aspect">Overall shopping experience</button>
 
     </div>
 
@@ -349,7 +287,7 @@
   </main>
 
   <script>
-    let selectedRating = 5;
+    let selectedRating = null;
     let isGenerating = false;
 
     const selectedAspects = new Set();
@@ -375,7 +313,7 @@
 
         button.classList.toggle(
           "active",
-          rating <= selectedRating
+          selectedRating !== null && rating <= selectedRating
         );
 
         button.setAttribute(
@@ -431,6 +369,11 @@
     generateButton.addEventListener("click", async () => {
       if (isGenerating) return;
 
+      if (selectedRating === null) {
+        showStatus("Please select your star rating first.", true);
+        return;
+      }
+
       isGenerating = true;
       generateButton.disabled = true;
       generateButton.textContent = "Generating your review...";
@@ -464,12 +407,8 @@
 
         review.value = data.draft.trim();
 
-        const providerInfo = data.provider
-          ? ` (${data.provider}, ${((data.durationMs || 0) / 1000).toFixed(1)}s)`
-          : "";
-
         showStatus(
-          `Review generated${providerInfo}. Check and edit it to match your experience.`
+          "Review generated. Please edit it to match your actual experience."
         );
 
       } catch (error) {
