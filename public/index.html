@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f4f4">
+  <title>Sqver Circle | Share Your Experience</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: #f4f4f4;
+      color: #171717;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      padding: 28px 22px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px #00000012;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin: 10px 0 24px;
+    }
+
+    .stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .star {
+      border: 0;
+      background: none;
+      padding: 2px;
+      font-size: 42px;
+      color: #d5d5d5;
+      cursor: pointer;
+    }
+
+    .star.active {
+      color: #f5b400;
+    }
+
+    .star:focus-visible,
+    .btn:focus-visible,
+    .aspect:focus-visible {
+      outline: 3px solid #777;
+      outline-offset: 3px;
+    }
+
+    .section-heading {
+      margin: 24px 0 12px;
+      font-size: 16px;
+    }
+
+    .aspects {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin: 14px 0 20px;
+    }
+
+    .aspect {
+      border: 1px solid #e5e5e5;
+      background: #fafafa;
+      border-radius: 20px;
+      padding: 9px 11px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #333;
+      line-height: 1.2;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .aspect.selected {
+      background: #171717;
+      color: white;
+      border-color: #171717;
+    }
+
+    .language-label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 20px 0 8px;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: white;
+      font-size: 14px;
+    }
+
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 145px;
+      resize: vertical;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font: inherit;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 10px;
+      background: #171717;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: #eeeeee;
+      color: #171717;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .note {
+      color: #777;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+
+    #status {
+      min-height: 18px;
+      color: #287447;
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    #status.error {
+      color: #b42318;
+    }
+
+    @media (max-width: 360px) {
+      .card {
+        padding: 24px 15px;
+      }
+
+      .aspect {
+        font-size: 11px;
+        padding: 8px 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <div class="logo">SQVER CIRCLE</div>
+    <p class="subtitle">Thank you for shopping with us!</p>
+
+    <h3>How was your experience?</h3>
+
+    <div class="stars" role="group" aria-label="Choose your rating">
+      <button type="button" class="star"
+        data-rating="1" aria-label="1 star"
+        aria-pressed="false">★</button>
+
+      <button type="button" class="star"
+        data-rating="2" aria-label="2 stars"
+        aria-pressed="false">★</button>
+
+      <button type="button" class="star"
+        data-rating="3" aria-label="3 stars"
+        aria-pressed="false">★</button>
+
+      <button type="button" class="star"
+        data-rating="4" aria-label="4 stars"
+        aria-pressed="false">★</button>
+
+      <button type="button" class="star active"
+        data-rating="5" aria-label="5 stars"
+        aria-pressed="true">★</button>
+    </div>
+
+    <h3 class="section-heading">
+      What would you like to mention?
+    </h3>
+
+    <div class="aspects" id="categories">
+
+      <button type="button" class="aspect">
+        Ambience & atmosphere
+      </button>
+
+      <button type="button" class="aspect">
+        Lighting
+      </button>
+
+      <button type="button" class="aspect">
+        Cleanliness
+      </button>
+
+      <button type="button" class="aspect">
+        Store layout
+      </button>
+
+      <button type="button" class="aspect">
+        Display & presentation
+      </button>
+
+      <button type="button" class="aspect">
+        Staff behaviour
+      </button>
+
+      <button type="button" class="aspect">
+        Staff helpfulness
+      </button>
+
+      <button type="button" class="aspect">
+        Staff product knowledge
+      </button>
+
+      <button type="button" class="aspect">
+        Customer service
+      </button>
+
+      <button type="button" class="aspect">
+        Billing experience
+      </button>
+
+      <button type="button" class="aspect">
+        Clothing collection
+      </button>
+
+      <button type="button" class="aspect">
+        Footwear collection
+      </button>
+
+      <button type="button" class="aspect">
+        Variety & choices
+      </button>
+
+      <button type="button" class="aspect">
+        Latest trends
+      </button>
+
+      <button type="button" class="aspect">
+        Sizes & availability
+      </button>
+
+      <button type="button" class="aspect">
+        Product quality
+      </button>
+
+      <button type="button" class="aspect">
+        Price & value
+      </button>
+
+      <button type="button" class="aspect">
+        Offers & discounts
+      </button>
+
+      <button type="button" class="aspect">
+        Shopping comfort
+      </button>
+
+      <button type="button" class="aspect">
+        Ease of product selection
+      </button>
+
+      <button type="button" class="aspect">
+        Overall shopping experience
+      </button>
+
+    </div>
+
+    <label class="language-label" for="language">
+      Choose review language
+    </label>
+
+    <select id="language">
+      <option value="English">English</option>
+      <option value="Hindi">हिंदी</option>
+      <option value="Gujarati">ગુજરાતી</option>
+      <option value="Hinglish">Hinglish</option>
+    </select>
+
+    <textarea
+      id="review"
+      aria-label="Review draft"
+      placeholder="Your AI-generated review will appear here. You can edit it."
+    ></textarea>
+
+    <button type="button" class="btn" id="generate">
+      ✨ Generate AI Review
+    </button>
+
+    <button type="button" class="btn secondary" id="copy">
+      Copy review
+    </button>
+
+    <button type="button" class="btn secondary" id="google">
+      Continue to Google Reviews
+    </button>
+
+    <div id="status" role="status" aria-live="polite"></div>
+
+    <p class="note">
+      Please check and edit the draft so it reflects your own experience.
+      Your rating is your choice. Copy your review, then paste it into
+      Google Reviews and post it yourself.
+    </p>
+
+  </main>
+
+  <script>
+    let selectedRating = 5;
+    let isGenerating = false;
+
+    const selectedAspects = new Set();
+
+    const review = document.getElementById("review");
+    const status = document.getElementById("status");
+    const generateButton = document.getElementById("generate");
+    const copyButton = document.getElementById("copy");
+    const language = document.getElementById("language");
+
+    const googleReviewUrl =
+      "https://g.page/r/CY9R9XR6xrIHEBM/review";
+
+    function showStatus(message, isError = false) {
+      status.textContent = message;
+      status.classList.toggle("error", isError);
+    }
+
+    // Star rating
+    function updateStars() {
+      document.querySelectorAll(".star").forEach(button => {
+        const rating = Number(button.dataset.rating);
+
+        button.classList.toggle(
+          "active",
+          rating <= selectedRating
+        );
+
+        button.setAttribute(
+          "aria-pressed",
+          String(rating === selectedRating)
+        );
+      });
+    }
+
+    document.querySelectorAll(".star").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedRating = Number(button.dataset.rating);
+        updateStars();
+
+        showStatus(
+          `You selected ${selectedRating} star${selectedRating === 1 ? "" : "s"}.`
+        );
+      });
+    });
+
+    // Experience options - maximum 5
+    function updateAspects() {
+      document.querySelectorAll(".aspect").forEach(button => {
+        const aspect = button.textContent.trim();
+        const selected = selectedAspects.has(aspect);
+
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+    }
+
+    document.querySelectorAll(".aspect").forEach(button => {
+      button.setAttribute("aria-pressed", "false");
+
+      button.addEventListener("click", () => {
+        const aspect = button.textContent.trim();
+
+        if (selectedAspects.has(aspect)) {
+          selectedAspects.delete(aspect);
+        } else {
+          if (selectedAspects.size >= 5) {
+            return;
+          }
+
+          selectedAspects.add(aspect);
+        }
+
+        updateAspects();
+      });
+    });
+
+    // AI review generation
+    generateButton.addEventListener("click", async () => {
+      if (isGenerating) return;
+
+      isGenerating = true;
+      generateButton.disabled = true;
+      generateButton.textContent = "Generating your review...";
+
+      showStatus("AI is preparing your review. Please wait.");
+
+      try {
+        const response = await fetch("/api/review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            rating: selectedRating,
+            language: language.value,
+            aspects: Array.from(selectedAspects)
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error || "Could not generate the review."
+          );
+        }
+
+        if (!data.draft || typeof data.draft !== "string") {
+          throw new Error("The AI returned an empty review.");
+        }
+
+        review.value = data.draft.trim();
+
+        const providerInfo = data.provider
+          ? ` (${data.provider}, ${((data.durationMs || 0) / 1000).toFixed(1)}s)`
+          : "";
+
+        showStatus(
+          `Review generated${providerInfo}. Check and edit it to match your experience.`
+        );
+
+      } catch (error) {
+        console.error("Review generation error:", error);
+
+        showStatus(
+          error.message ||
+          "AI review could not be generated. Please try again.",
+          true
+        );
+
+      } finally {
+        isGenerating = false;
+        generateButton.disabled = false;
+        generateButton.textContent = "✨ Generate AI Review";
+      }
+    });
+
+    // Copy review
+    copyButton.addEventListener("click", async () => {
+      const text = review.value.trim();
+
+      if (!text) {
+        showStatus("Please generate a review first.", true);
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showStatus("Review copied! Paste it into Google Reviews.");
+
+      } catch {
+        review.focus();
+        review.select();
+
+        showStatus(
+          "Review selected. Copy it manually using Ctrl+C."
+        );
+      }
+    });
+
+    // Open Google Reviews
+    document.getElementById("google").addEventListener("click", () => {
+      window.open(
+        googleReviewUrl,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    });
+
+    updateStars();
+    updateAspects();
+  </script>
+</body>
+</html>
